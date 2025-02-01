@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل الجدول كملف Excel</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<h2>جدول البيانات</h2>
+
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>العمر</th>
+            <th>البلد</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>محمد</td>
+            <td>25</td>
+            <td>السعودية</td>
+        </tr>
+        <tr>
+            <td>أحمد</td>
+            <td>30</td>
+            <td>مصر</td>
+        </tr>
+        <tr>
+            <td>فاطمة</td>
+            <td>22</td>
+            <td>الإمارات</td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<button onclick="exportTableToExcel()">تحميل كملف Excel</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script>
+    function exportTableToExcel() {
+        // الحصول على الجدول
+        const table = document.getElementById("dataTable");
+        
+        // تحويل الجدول إلى ورقة عمل
+        const ws = XLSX.utils.table_to_sheet(table);
+        
+        // إنشاء مصنف وإضافة الورقة العمل إليه
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        
+        // تحميل الملف كملف Excel
+        XLSX.writeFile(wb, "الجدول.xlsx");
+    }
+</script>
+
+</body>
+</html>
